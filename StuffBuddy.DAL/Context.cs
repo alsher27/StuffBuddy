@@ -8,8 +8,11 @@ namespace StuffBuddy.DAL
 {
     public class Context : IdentityDbContext<User>
     {
-        public Context(DbContextOptions options) : base(options)
+        private readonly IConfiguration config;
+        public Context(DbContextOptions options, IConfiguration configuration) : base(options)
         {
+            this.config = configuration;
+            Database.Migrate();
         }
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -18,7 +18,6 @@ namespace StuffBuddy.Controllers
             _signInManager = signInManager;
         }
 
-
         [HttpGet]
         [Route("getUsername")]
         public string GetUsername()
@@ -53,6 +52,7 @@ namespace StuffBuddy.Controllers
             return new OkResult();
         }
 
+        [HttpGet]
         [Route("signout")]
         public async void Logout()
         {
