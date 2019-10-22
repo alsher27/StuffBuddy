@@ -20,4 +20,8 @@
   <ItemGroup>
     <ProjectReference Include="..\StuffBuddy.Business\StuffBuddy.Business.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Pages\Home\Index.cshtml" />
+  </ItemGroup>
 </Project>
