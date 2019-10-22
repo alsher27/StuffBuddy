@@ -7,6 +7,7 @@ using StuffBuddy.ViewModels;
 namespace StuffBuddy.Controllers
 {
     [Route("api/[controller]")]
+    [ApiController]
     public class AccountController : Controller
     {
         private readonly UserManager<User> _userManager;
@@ -42,7 +43,7 @@ namespace StuffBuddy.Controllers
         [Route("register")]
         public async Task<IActionResult> Register([FromBody] UserLoginModel model)
         {
-            User user = new User {Email = model.Email, UserName = model.Email};
+            var user = new User {Email = model.Email, UserName = model.Email};
 
             var result = await _userManager.CreateAsync(user, model.Password);
 
@@ -54,7 +55,7 @@ namespace StuffBuddy.Controllers
 
         [HttpGet]
         [Route("signout")]
-        public async void Logout()
+        public async void SignOut()
         {
             await _signInManager.SignOutAsync();
         }

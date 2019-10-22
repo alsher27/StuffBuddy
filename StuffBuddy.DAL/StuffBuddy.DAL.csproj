@@ -9,9 +9,6 @@
     <Folder Include="Entities\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\StuffBuddy.Inter\StuffBuddy.Inter.csproj" />
-  </ItemGroup>
-  <ItemGroup>
     <Reference Include="Microsoft.EntityFrameworkCore">
       <HintPath>..\..\..\..\..\usr\local\share\dotnet\sdk\NuGetFallbackFolder\microsoft.entityframeworkcore\2.1.1\lib\netstandard2.0\Microsoft.EntityFrameworkCore.dll</HintPath>
     </Reference>
@@ -21,6 +18,8 @@
     <Reference Include="Microsoft.Extensions.Identity.Stores, Version=2.1.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="9.0.0" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.1.1" />

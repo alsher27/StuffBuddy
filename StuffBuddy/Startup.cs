@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -12,8 +13,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using StuffBuddy.Business;
+using StuffBuddy.Business.Services;
 using StuffBuddy.DAL;
 using StuffBuddy.DAL.Entities;
+using StuffBuddy.DAL.Repositories;
 
 namespace StuffBuddy
 {
@@ -30,10 +34,15 @@ namespace StuffBuddy
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            services.AddAutoMapper(typeof(Startup));
             
             services.AddDbContext<Context>(options =>
                 options.UseSqlite(Configuration.GetConnectionString("Default")));
-            
+
+            services.AddScoped<IDeviceRepo, DeviceRepo>();
+            services.AddScoped<IDeviceService, DeviceService>();
+
             services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<Context>();
             return services.BuildServiceProvider();
@@ -64,7 +73,6 @@ namespace StuffBuddy
                     name: "DefaultApi",
                     template: "api/{controller}/{action}/{id?}");
             });
-            
         }
     }
 }

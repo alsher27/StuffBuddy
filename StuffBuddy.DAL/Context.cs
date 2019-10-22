@@ -9,6 +9,11 @@ namespace StuffBuddy.DAL
     public class Context : IdentityDbContext<User>
     {
         private readonly IConfiguration config;
+
+        public DbSet<Device> Devices { get; set; }
+        
+        public DbSet<Order> Orders { get; set; }
+
         public Context(DbContextOptions options, IConfiguration configuration) : base(options)
         {
             this.config = configuration;

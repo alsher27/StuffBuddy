@@ -134,7 +134,11 @@ namespace StuffBuddy.DAL.Migrations
 
                     b.Property<float>("Price");
 
-                    b.Property<float>("Rating");
+                    b.Property<int>("TotalRate");
+
+                    b.Property<int>("TotalReviews");
+
+                    b.Property<int>("Type");
 
                     b.Property<string>("UserID");
 
@@ -142,7 +146,7 @@ namespace StuffBuddy.DAL.Migrations
 
                     b.HasIndex("UserID");
 
-                    b.ToTable("Device");
+                    b.ToTable("Devices");
                 });
 
             modelBuilder.Entity("StuffBuddy.DAL.Entities.Order", b =>
@@ -158,15 +162,37 @@ namespace StuffBuddy.DAL.Migrations
 
                     b.Property<float>("Total");
 
-                    b.Property<string>("UserId");
+                    b.Property<string>("UserID");
 
                     b.HasKey("Id");
 
                     b.HasIndex("DeviceId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserID");
 
-                    b.ToTable("Order");
+                    b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("StuffBuddy.DAL.Entities.Review", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("DeviceId");
+
+                    b.Property<int>("Rating");
+
+                    b.Property<string>("Text");
+
+                    b.Property<string>("UserID");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DeviceId");
+
+                    b.HasIndex("UserID");
+
+                    b.ToTable("Review");
                 });
 
             modelBuilder.Entity("StuffBuddy.DAL.Entities.User", b =>
@@ -279,9 +305,21 @@ namespace StuffBuddy.DAL.Migrations
                         .WithMany()
                         .HasForeignKey("DeviceId");
 
-                    b.HasOne("StuffBuddy.DAL.Entities.User")
+                    b.HasOne("StuffBuddy.DAL.Entities.User", "Owner")
                         .WithMany("Orders")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserID");
+                });
+
+            modelBuilder.Entity("StuffBuddy.DAL.Entities.Review", b =>
+                {
+                    b.HasOne("StuffBuddy.DAL.Entities.Device", "Device")
+                        .WithMany("Reviews")
+                        .HasForeignKey("DeviceId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("StuffBuddy.DAL.Entities.User", "Creator")
+                        .WithMany()
+                        .HasForeignKey("UserID");
                 });
 #pragma warning restore 612, 618
         }
