@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -12,11 +13,13 @@ namespace StuffBuddy.Controllers
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager)
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, RoleManager<IdentityRole> roleManager)
         {
-            _userManager = userManager;
-            _signInManager = signInManager;
+            this._userManager = userManager;
+            this._signInManager = signInManager;
+            this._roleManager = roleManager;
         }
 
         [HttpGet]
@@ -25,16 +28,24 @@ namespace StuffBuddy.Controllers
         {
             return User.Identity.Name;
         }
+        
+        [HttpGet]
+        [Route("getRole")]
+        public string GetRole()
+        {
+            return User.FindFirst(ClaimTypes.Role).Value;
+        }
 
         [HttpPost]
         [Route("login")]
         public async Task<IActionResult> Login([FromBody] UserLoginModel model)
         {
-            var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, 
+            var user = await this._userManager.FindByEmailAsync(model.Email);
+            var result = await _signInManager.PasswordSignInAsync(user, model.Password, 
                 isPersistent: true, lockoutOnFailure: false);
 
             if (result.Succeeded)
-                return new OkResult();
+                return new JsonResult(model.Email);
                 
             return new UnauthorizedResult();
         }
@@ -43,14 +54,17 @@ namespace StuffBuddy.Controllers
         [Route("register")]
         public async Task<IActionResult> Register([FromBody] UserLoginModel model)
         {
-            var user = new User {Email = model.Email, UserName = model.Email};
+            var user = new User { Email = model.Email, UserName = model.Email, FirstLastName = model.Name };
 
             var result = await _userManager.CreateAsync(user, model.Password);
 
             if (!result.Succeeded) return new JsonResult(result.Errors);
 
+            await _userManager.AddToRoleAsync(user, "user");
+
             await _signInManager.SignInAsync(user, true);
-            return new OkResult();
+            var x = new { user.Email, model.Name};
+            return new JsonResult(x);
         }
 
         [HttpGet]

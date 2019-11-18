@@ -7,8 +7,6 @@ using StuffBuddy.DAL;
 
 namespace StuffBuddy.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
     public class HomeController : Controller
     {
         public HomeController(Context context)

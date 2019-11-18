@@ -21,6 +21,11 @@ namespace StuffBuddy.DAL.Entities
         public User Owner { get; set; }
 
         public List<Review> Reviews { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]  
+        public float Rating
+        {
+            get => TotalReviews == 0 ? 0 : TotalRate / TotalReviews;
+        }
 
     }
 }

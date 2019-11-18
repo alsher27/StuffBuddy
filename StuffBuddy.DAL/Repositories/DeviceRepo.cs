@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
@@ -9,14 +10,10 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace StuffBuddy.DAL.Repositories
 {
-    public class DeviceRepo : IDeviceRepo
+    public class DeviceRepo : RepositoryBase, IDeviceRepo
     {
-
-        private readonly Context _context;
-        
-        public DeviceRepo(Context context)
+        public DeviceRepo(Context context) : base(context)
         {
-            this._context = context;
         }
         
         public async Task<Device> GetDevice(int id)
@@ -43,11 +40,13 @@ namespace StuffBuddy.DAL.Repositories
 
         public async Task<List<Device>> SearchDevices(List<Func<Device, bool>> filters)
         {
-            var output = this._context.Devices;
-            foreach (var filter in filters)
-            {
-                output.Where(filter);
-            }
+            // Try it out
+            var output = this._context.Devices.Where(d=>filters.All(f=>f(d)));
+            
+//            foreach (var filter in filters)
+//            {
+//                output = output.Where(filter);
+//            }
 
             return await output.ToListAsync();
         }
@@ -64,6 +63,11 @@ namespace StuffBuddy.DAL.Repositories
             return this._context.Devices.Skip(page * count).Take(count).ToListAsync();
         }
 
+        public async Task<List<Device>> GetDevicesOwnedBy(string userId)
+        {
+            return await this._context.Devices.Where(d => d.UserID == userId).ToListAsync();
+        }
+
         public Task<List<Device>> GetDevicesOwnedBy(User user)
         {
             return this._context.Devices.Where(d => d.UserID == user.Id).ToListAsync();
@@ -73,6 +77,5 @@ namespace StuffBuddy.DAL.Repositories
         {
             return this._context.Devices.Where(d => d.Type == type).ToListAsync();
         }
-        
     }
 }

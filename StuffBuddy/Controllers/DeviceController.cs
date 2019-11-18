@@ -15,18 +15,18 @@ namespace StuffBuddy.Controllers
     [Authorize]
     public class DeviceController : Controller
     {
-        private readonly IDeviceService deviceService;
+        private readonly IDeviceService _deviceService;
 
-        public DeviceController(IDeviceService _deviceService)
+        public DeviceController(IDeviceService deviceService)
         {
-            this.deviceService = _deviceService;
+            this._deviceService = deviceService;
         }
 
         [HttpPost]
         [Route("get")]
         public async Task<IActionResult> GetDevice([FromBody] int id)
         {
-            var device = await this.deviceService.GetDevice(id);
+            var device = await this._deviceService.GetDevice(id);
             return new JsonResult(device);
         }
         
@@ -34,7 +34,7 @@ namespace StuffBuddy.Controllers
         [Route("create")]
         public async Task<IActionResult> CreateDevice([FromBody] DeviceModel deviceModel)
         {
-            var createdDevice = await this.deviceService.CreateDevice(deviceModel, User.FindFirstValue(ClaimTypes.NameIdentifier));
+            var createdDevice = await this._deviceService.CreateDevice(deviceModel, User.FindFirstValue(ClaimTypes.NameIdentifier));
             return new JsonResult(createdDevice);
         }
         
@@ -42,7 +42,7 @@ namespace StuffBuddy.Controllers
         [Route("delete")]
         public async Task<IActionResult> DeleteDevice([FromBody] int id)
         {
-            await this.deviceService.DeleteDevice(id);
+            await this._deviceService.DeleteDevice(id);
             return new OkResult();
         }
         
@@ -50,11 +50,11 @@ namespace StuffBuddy.Controllers
         [Route("update")]
         public async Task<IActionResult> UpdateDevice([FromBody]DeviceModel deviceModel)
         {
-            var device = await this.deviceService.GetDevice(deviceModel.Id);
+            var device = await this._deviceService.GetDevice(deviceModel.Id);
             if(device == null) return new JsonResult(new {Error = "Device not found"});
             
             deviceModel.Id = device.Id;
-            await this.deviceService.UpdateDevice(deviceModel);
+            await this._deviceService.UpdateDevice(deviceModel);
             
             return new OkResult();
         }
@@ -64,7 +64,16 @@ namespace StuffBuddy.Controllers
         [Route("search")]
         public async Task<List<DeviceModel>> SearchDevice([FromBody]DeviceSearchModel searchModel)
         {
-            return await this.deviceService.SearchDevice(searchModel); 
+            return await this._deviceService.SearchDevice(searchModel); 
         }
+        [HttpGet]
+        [AllowAnonymous]
+        [Route("devicesOfUser")]
+        public async Task<List<DeviceModel>> GetDevicesForUser([FromBody] string userId)
+        {
+            return await this._deviceService.GetDevicesForUser(userId); 
+        }
+        
+        
     }
 }

@@ -13,7 +13,7 @@ namespace StuffBuddy.DAL.Repositories
         
         Task<List<Device>> GetDevices(int count, int page);
 
-        Task<List<Device>> GetDevicesOwnedBy(User user);
+        Task<List<Device>> GetDevicesOwnedBy(string userId);
         
         Task<List<Device>> GetDevicesOfType(DeviceType type);
         Task<EntityEntry<Device>> CreateDevice(Device device);

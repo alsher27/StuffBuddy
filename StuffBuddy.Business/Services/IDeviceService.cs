@@ -13,5 +13,6 @@ namespace StuffBuddy.Business.Services
         Task UpdateDevice(DeviceModel deviceModel);
         Task DeleteDevice(int id);
         Task<List<DeviceModel>> SearchDevice(DeviceSearchModel searchModel);
+        Task<List<DeviceModel>> GetDevicesForUser(string userId);
     }
 }

@@ -50,16 +50,27 @@ namespace StuffBuddy.Business.Services
             var filters = new List<Func<Device, bool>>();
             if (!string.IsNullOrEmpty(searchModel.Text))
                 filters.Add(dev =>
-                    dev.Name.Contains(searchModel.Text) ||
-                    dev.Description.Contains(searchModel.Text));
+                    dev.Name.ToLower().Contains(searchModel.Text.ToLower()) ||
+                    dev.Description.ToLower().Contains(searchModel.Text.ToLower()));
                                    
             if(searchModel.FromPrice.HasValue)
                 filters.Add(dev => dev.Price > searchModel.FromPrice.Value);
             
             if(searchModel.ToPrice.HasValue)
                 filters.Add(dev => dev.Price < searchModel.ToPrice);
+            
+            if(searchModel.Rating.HasValue)
+                filters.Add(dev => dev.TotalRate / dev.TotalReviews > searchModel.Rating);
+            
+            if(searchModel.Type.HasValue)
+                filters.Add(dev => dev.Type == searchModel.Type.Value);
 
             return this.mapper.Map<List<Device>, List<DeviceModel>>(await this.deviceRepo.SearchDevices(filters));
+        }
+
+        public async Task<List<DeviceModel>> GetDevicesForUser(string userId)
+        {
+            return this.mapper.Map<List<Device>, List<DeviceModel>>(await this.deviceRepo.GetDevicesOwnedBy(userId));        
         }
     }
 }
