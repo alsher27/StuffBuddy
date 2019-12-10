@@ -3,9 +3,11 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using StuffBuddy.Business.Models;
 using StuffBuddy.Business.Services;
+using StuffBuddy.DAL.Entities;
 using StuffBuddy.ViewModels;
 
 namespace StuffBuddy.Controllers
@@ -16,10 +18,12 @@ namespace StuffBuddy.Controllers
     public class DeviceController : Controller
     {
         private readonly IDeviceService _deviceService;
+        private readonly UserManager<User> _userManager;
 
-        public DeviceController(IDeviceService deviceService)
+        public DeviceController(IDeviceService deviceService, UserManager<User> userManager)
         {
             this._deviceService = deviceService;
+            this._userManager = userManager;
         }
 
         [HttpPost]
@@ -42,6 +46,10 @@ namespace StuffBuddy.Controllers
         [Route("delete")]
         public async Task<IActionResult> DeleteDevice([FromBody] int id)
         {
+            var user = await this._userManager.GetUserAsync(this.User);
+            var roles = await this._userManager.GetRolesAsync(user);
+            if (!user.OwnedDevices.Select(d => d.Id).Contains(id) && !roles.Contains("admin"))
+                return new BadRequestObjectResult("You can't delete this device");
             await this._deviceService.DeleteDevice(id);
             return new OkResult();
         }
@@ -50,10 +58,13 @@ namespace StuffBuddy.Controllers
         [Route("update")]
         public async Task<IActionResult> UpdateDevice([FromBody]DeviceModel deviceModel)
         {
+            var user = await this._userManager.GetUserAsync(this.User);
+            var roles = await this._userManager.GetRolesAsync(user);
+            
+            if (!user.OwnedDevices.Select(d => d.Id).Contains(deviceModel.Id) && !roles.Contains("admin"))
+                return new BadRequestObjectResult("You can't delete this device");
             var device = await this._deviceService.GetDevice(deviceModel.Id);
             if(device == null) return new JsonResult(new {Error = "Device not found"});
-            
-            deviceModel.Id = device.Id;
             await this._deviceService.UpdateDevice(deviceModel);
             
             return new OkResult();

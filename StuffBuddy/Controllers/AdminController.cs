@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -27,5 +28,17 @@ namespace StuffBuddy.Controllers
         {
             return (await this._userManager.GetUsersInRoleAsync("user")).ToList();
         }
+
+        [Route("user/deactivate/{userId}")]
+        [HttpGet]
+        public async Task<IActionResult> DeactivateUser([FromRoute] Guid userId)
+        {
+            var users = await this._userManager.GetUsersInRoleAsync("user");
+            var user = users.First(u => u.Id == userId.ToString());
+            if(user == null) return new BadRequestObjectResult("User does not exist");
+            await this._userManager.SetLockoutEnabledAsync(user, true);
+            return new OkResult();
+        }
+        
     }
 }

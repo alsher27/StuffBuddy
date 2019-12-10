@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,7 +16,12 @@ namespace StuffBuddy.DAL.Repositories
         {
             this._deviceRepo = deviceRepo;
         }
-        
+
+        public async Task<Review> GetReview(int id)
+        {
+            return await this._context.Reviews.FindAsync(id);
+        }
+
         public async Task<Review> CreateReview(Review review)
         {
             //review.Creator = await this._context.Users.FirstAsync(u => u.Id == review.UserID);

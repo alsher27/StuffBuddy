@@ -17,6 +17,12 @@ namespace StuffBuddy.Business.Services
             this._orderRepo = orderRepo;
             this.mapper = mapper;
         }
+
+        public async Task<OrderModel> GetOrder(int id)
+        {
+            return mapper.Map<Order, OrderModel>(await this._orderRepo.GetOrder(id));
+        }
+
         public async Task<OrderModel> CreateOrder(OrderModel orderModel)
         {
             return mapper.Map<Order, OrderModel>(await this._orderRepo.CreateOrder(mapper.Map<OrderModel, Order>(orderModel)));

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using StuffBuddy.Business.Models;
@@ -7,6 +8,7 @@ namespace StuffBuddy.Business.Services
 {
     public interface IReviewService
     {
+        Task<ReviewModel> GetReview(int id);
         Task UpdateReview(ReviewModel reviewModel);
         Task<ReviewModel> CreateReview(ReviewModel reviewModel);
         Task RemoveReview(int id);

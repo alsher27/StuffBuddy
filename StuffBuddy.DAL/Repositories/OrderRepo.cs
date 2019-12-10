@@ -41,5 +41,10 @@ namespace StuffBuddy.DAL.Repositories
         {
             return (await this._context.Users.FirstAsync(u => u.Id == userId)).Orders;
         }
+
+        public async Task<Order> GetOrder(int id)    
+        {
+            return await this._context.Orders.FirstAsync(o => o.Id == id);
+        }
     }
 }

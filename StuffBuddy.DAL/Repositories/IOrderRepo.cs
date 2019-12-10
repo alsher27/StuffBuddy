@@ -11,5 +11,6 @@ namespace StuffBuddy.DAL.Repositories
         Task UpdateOrder(Order orderModel);
         Task<List<Order>> GetOrdersOfDevice(int deviceId);
         Task<List<Order>> GetUserOrders(string userId);
+        Task<Order> GetOrder(int id);
     }
 }

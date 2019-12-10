@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -16,6 +17,11 @@ namespace StuffBuddy.Business.Services
         {
             this._reviewRepo = reviewRepo;
             this.mapper = mapper;
+        }
+
+        public async Task<ReviewModel> GetReview(int id)
+        {
+            return mapper.Map<Review, ReviewModel>(await this._reviewRepo.GetReview(id));
         }
         
         public async Task UpdateReview(ReviewModel reviewModel)

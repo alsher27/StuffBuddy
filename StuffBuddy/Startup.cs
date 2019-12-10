@@ -18,6 +18,7 @@ using StuffBuddy.Business.Services;
 using StuffBuddy.DAL;
 using StuffBuddy.DAL.Entities;
 using StuffBuddy.DAL.Repositories;
+using StuffBuddy.Hubs;
 
 namespace StuffBuddy
 {
@@ -67,6 +68,8 @@ namespace StuffBuddy
                 options.Password.RequireUppercase = false;
                 options.Password.RequireNonAlphanumeric = false;
             });
+
+            services.AddSignalR();
             
             return services.BuildServiceProvider();
         }
@@ -86,6 +89,11 @@ namespace StuffBuddy
             app.UseStaticFiles();
             app.UseHttpsRedirection();
 
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<NotificationsHub>("/notifications");
+            });
+            
             app.UseCors("any");
             app.UseMvc(routes =>
             {

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -7,6 +8,7 @@ namespace StuffBuddy.DAL.Repositories
 {
     public interface IReviewRepo
     {
+        Task<Review> GetReview(int id);
         Task<Review> CreateReview(Review map);
         Task UpdateReview(Review map);
         Task RemoveReview(int id);

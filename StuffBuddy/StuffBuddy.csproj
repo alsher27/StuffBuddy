@@ -24,4 +24,7 @@
   <ItemGroup>
     <_ContentIncludedByDefault Remove="Pages\Home\Index.cshtml" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Controllers\ValuesController.cs" />
+  </ItemGroup>
 </Project>

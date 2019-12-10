@@ -2,9 +2,15 @@ using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Newtonsoft.Json;
 using StuffBuddy.Business.Models;
 using StuffBuddy.Business.Services;
+using StuffBuddy.DAL.Entities;
+using StuffBuddy.Hubs;
 
 namespace StuffBuddy.Controllers
 {
@@ -14,22 +20,47 @@ namespace StuffBuddy.Controllers
     public class OrderController : Controller
     {
         private readonly IOrderService _orderService;
+        private readonly UserManager<User> _userManager;
+        private readonly IHubContext<NotificationsHub> _hubContext;
 
-        public OrderController(IOrderService orderService)
+        public OrderController(IOrderService orderService, UserManager<User> userManager, IHubContext<NotificationsHub> hubContext)
         {
             this._orderService = orderService;
+            this._userManager = userManager;
+            this._hubContext = hubContext;
         }
+        
+        [HttpGet]
+        [Route("get/{id}")]
+        public async Task<IActionResult> GetOrder([FromQuery] int id)
+        {
+            
+            var user = await this._userManager.GetUserAsync(this.User);
+            var roles = await this._userManager.GetRolesAsync(user);
+            var order = await this._orderService.GetOrder(id);
+
+            if (order.Owner.Id != user.Id && !roles.Contains("admin"))
+                return new BadRequestObjectResult("You are not allowed to watch this order");
+            return new OkObjectResult(order);
+
+        }
+
 
         [HttpPost]
         [Route("create")]
-        public async Task<OrderModel> CreateOrder([FromBody]OrderModel reviewModel)
+        public async Task<OrderModel> CreateOrder([FromBody]OrderModel orderModel)
         {
-            return await this._orderService.CreateOrder(reviewModel);
+            orderModel.UserID = (await this._userManager.GetUserAsync(this.User)).Id;
+            var order = await this._orderService.CreateOrder(orderModel);
+            var clientProxy = this._hubContext.Clients.User(order.Device.Owner.Id);
+            await clientProxy.SendAsync("onOrderCreated", order);
+            return order;
         }
         
         [HttpPost]
         [Route("remove")]
-        public async Task<IActionResult> Removeorder([FromBody]int id)
+        [Authorize(Roles = "admin")]
+        public async Task<IActionResult> RemoveOrder([FromBody]int id)
         {
             await this._orderService.RemoveOrder(id);
             return new OkResult();
@@ -37,7 +68,8 @@ namespace StuffBuddy.Controllers
         
         [HttpPost]
         [Route("update")]
-        public async Task<IActionResult> Updateorder(OrderModel orderModel)
+        [Authorize(Roles = "admin")]
+        public async Task<IActionResult> UpdateOrder(OrderModel orderModel)
         {
             await this._orderService.UpdateOrder(orderModel);
             return new OkResult();
