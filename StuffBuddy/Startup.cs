@@ -20,6 +20,7 @@ using StuffBuddy.DAL;
 using StuffBuddy.DAL.Entities;
 using StuffBuddy.DAL.Repositories;
 using StuffBuddy.Hubs;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace StuffBuddy
 {
@@ -72,6 +73,10 @@ namespace StuffBuddy
 
             services.AddSignalR();
             
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
+            });
             return services.BuildServiceProvider();
         }
 
@@ -110,6 +115,15 @@ namespace StuffBuddy
             {
                 HotModuleReplacement = true,
                 
+            });
+            app.UseSwagger();
+
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
+            // specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+                //c.RoutePrefix = "swagger";
             });
             
             this.EnsureRoles(serviceProvider).Wait();
