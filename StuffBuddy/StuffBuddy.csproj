@@ -6,6 +6,7 @@
 
   <Target Name="PreBuild" Condition="$(ConfigurationName) != Debug" BeforeTargets="PreBuildEvent">
     <Exec Command="npm i" />
+    <Exec Command="webpack" />
   </Target>
   
   <ItemGroup>

@@ -86,6 +86,12 @@ namespace StuffBuddy
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                
+                app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions()
+                {
+                    HotModuleReplacement = true,
+                
+                });
             }
             else
             {
@@ -111,11 +117,6 @@ namespace StuffBuddy
                     template: "api/{controller}/{action}/{id?}");
             });
             
-            app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions()
-            {
-                HotModuleReplacement = true,
-                
-            });
             app.UseSwagger();
 
             // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
