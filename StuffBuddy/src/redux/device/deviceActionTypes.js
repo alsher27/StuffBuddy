@@ -1,0 +1,6 @@
+export const CREATE_DEVICE = 'CREATE_DEVICE';
+export const DELETE_DEVICE = 'DELETE_DEVICE';
+export const SEARCH_DEVICE = 'SEARCH_DEVICE';
+export const GET_DEVICES = 'GET_DEVICES';
+export const REQUEST_ERROR = 'REQUEST_ERROR';
+export const GET_USER_DEVICES = 'GET_USER_DEVICES';

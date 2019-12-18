@@ -1,0 +1,69 @@
+{
+  "name": "stuffbuddy_front",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack-dev-server --open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MightWarrior/StuffBuddy_front.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MightWarrior/StuffBuddy_front/issues"
+  },
+  "homepage": "https://github.com/MightWarrior/StuffBuddy_front#readme",
+  "devDependencies": {
+    "clean-webpack-plugin": "^3.0.0",
+    "css-loader": "^3.2.0",
+    "eslint": "^6.5.1",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-config-prettier": "^6.7.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.16.0",
+    "eslint-plugin-react-hooks": "^1.7.0",
+    "file-loader": "^4.2.0",
+    "history": "^4.9.0",
+    "html-loader": "^0.5.5",
+    "html-webpack-plugin": "^3.2.0",
+    "image-webpack-loader": "^6.0.0",
+    "node-sass": "^4.12.0",
+    "sass-loader": "^8.0.0",
+    "webpack": "^4.39.3",
+    "webpack-cli": "^3.3.7",
+    "webpack-dev-server": "^3.8.0"
+  },
+  "dependencies": {
+    "@babel/core": "^7.5.5",
+    "@babel/polyfill": "^7.6.0",
+    "@babel/preset-env": "^7.5.5",
+    "@material-ui/core": "^4.4.0",
+    "@material-ui/icons": "^4.2.1",
+    "aspnet-webpack": "^3.0.0",
+    "babel-eslint": "^10.0.3",
+    "babel-loader": "^8.0.6",
+    "babel-preset-react": "^6.24.1",
+    "formik": "^1.5.8",
+    "material-table": "^1.50.0",
+    "path": "^0.12.7",
+    "prop-types": "^15.7.2",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
+    "react-hot-loader": "^4.12.12",
+    "react-redux": "^7.1.1",
+    "react-router-dom": "^5.0.1",
+    "react-scripts": "^3.1.1",
+    "redux": "^4.0.4",
+    "redux-actions": "^2.6.5",
+    "redux-devtools-extension": "^2.13.8",
+    "redux-thunk": "^2.3.0",
+    "socket.io-client": "^2.2.0",
+    "webpack-hot-middleware": "^2.25.0",
+    "yup": "^0.27.0"
+  }
+}

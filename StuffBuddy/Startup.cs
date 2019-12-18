@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -104,6 +105,13 @@ namespace StuffBuddy
                     name: "DefaultApi",
                     template: "api/{controller}/{action}/{id?}");
             });
+            
+            app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions()
+            {
+                HotModuleReplacement = true,
+                
+            });
+            
             this.EnsureRoles(serviceProvider).Wait();
         }
         

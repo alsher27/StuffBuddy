@@ -7,6 +7,7 @@
   <ItemGroup>
     <Folder Include="wwwroot\" />
     <Folder Include="ViewModels\" />
+    <Folder Include="wwwroot\assets" />
   </ItemGroup>
 
   <ItemGroup>
@@ -23,8 +24,89 @@
 
   <ItemGroup>
     <_ContentIncludedByDefault Remove="Pages\Home\Index.cshtml" />
+    <_ContentIncludedByDefault Remove="wwwroot\src\redux\auth\authActions.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\src\redux\auth\authActionTypes.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\src\redux\auth\authReducer.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\src\redux\device\deviceActions.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\src\redux\device\deviceActionTypes.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\src\redux\device\deviceReducer.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\src\redux\order\orderActions.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\src\redux\order\orderActionTypes.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\src\redux\order\orderReducer.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\src\redux\reducers.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\src\services\Fetch.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\wp1896530.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Controllers\ValuesController.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="README.md">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="src\App.jsx">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="src\img\wp1896530.jpg" />
+    <Content Include="src\index.html">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="src\index.jsx">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="src\layout\components\header\Header.jsx" />
+    <Content Include="src\layout\components\header\header.scss" />
+    <Content Include="src\layout\components\header\index.jsx" />
+    <Content Include="src\layout\components\main\Main.jsx" />
+    <Content Include="src\layout\components\menuHeader\menuHeader.jsx" />
+    <Content Include="src\layout\components\menuHeader\menuHeader.scss" />
+    <Content Include="src\layout\Layout.jsx" />
+    <Content Include="src\layout\Layout.scss" />
+    <Content Include="src\redux\auth\authActions.js" />
+    <Content Include="src\redux\auth\authActionTypes.js" />
+    <Content Include="src\redux\auth\authReducer.js" />
+    <Content Include="src\redux\device\deviceActions.js" />
+    <Content Include="src\redux\device\deviceActionTypes.js" />
+    <Content Include="src\redux\device\deviceReducer.js" />
+    <Content Include="src\redux\order\orderActions.js" />
+    <Content Include="src\redux\order\orderActionTypes.js" />
+    <Content Include="src\redux\order\orderReducer.js" />
+    <Content Include="src\redux\reducers.js" />
+    <Content Include="src\routes\addNew\AddNew.jsx" />
+    <Content Include="src\routes\addNew\form\index.jsx" />
+    <Content Include="src\routes\addNew\index.jsx" />
+    <Content Include="src\routes\adminPanel\AdminPanel.jsx" />
+    <Content Include="src\routes\adminPanel\components\card.jsx" />
+    <Content Include="src\routes\adminPanel\index.jsx" />
+    <Content Include="src\routes\index.jsx" />
+    <Content Include="src\routes\landing\index.jsx" />
+    <Content Include="src\routes\landing\Landing.jsx" />
+    <Content Include="src\routes\landing\landing.scss" />
+    <Content Include="src\routes\login\form\index.jsx" />
+    <Content Include="src\routes\login\index.jsx" />
+    <Content Include="src\routes\login\Login.jsx" />
+    <Content Include="src\routes\login\login.scss" />
+    <Content Include="src\routes\menu\card\Card.jsx" />
+    <Content Include="src\routes\menu\card\index.jsx" />
+    <Content Include="src\routes\menu\form\FilterForm.jsx" />
+    <Content Include="src\routes\menu\form\Form.jsx" />
+    <Content Include="src\routes\menu\index.jsx" />
+    <Content Include="src\routes\menu\Menu.jsx" />
+    <Content Include="src\routes\menu\menu.scss" />
+    <Content Include="src\routes\profile\form.jsx" />
+    <Content Include="src\routes\profile\index.jsx" />
+    <Content Include="src\routes\profile\Profile.jsx" />
+    <Content Include="src\routes\profile\profile.scss" />
+    <Content Include="src\routes\registration\form\index.jsx" />
+    <Content Include="src\routes\registration\index.jsx" />
+    <Content Include="src\routes\registration\Registration.jsx" />
+    <Content Include="src\routes\registration\registration.scss" />
+    <Content Include="src\routes\Routes.jsx" />
+    <Content Include="src\services\Fetch.js" />
+    <Content Include="src\utils\validation.js" />
+    <Content Include="src\_shared\privateRoute.jsx" />
+    <Content Include="webpack.config.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
   </ItemGroup>
 </Project>

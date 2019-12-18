@@ -10,6 +10,6 @@ namespace StuffBuddy.Hubs
         public NotificationsHub()
         {
             
-        }
+        }                                        
     }
 }
