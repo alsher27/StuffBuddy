@@ -23,6 +23,7 @@ const deviceReducer = handleActions(
       isError: false,
       error: null,
       userDevices: [...state.userDevices, action.payload],
+      devicesShown: [...state.devicesShown, action.payload],
     }),
     [searchDeviceSuccess]: (state, action) => ({
       ...state,

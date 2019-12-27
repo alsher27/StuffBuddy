@@ -32,8 +32,9 @@ export const deviceSearch = (data) => (dispatch) => {
 };
 
 export const deviceCreate = (data) => (dispatch) => {
+  dispatch(createSuccess(data))
+  
   createDevice('device/create', data)
-    .then((res) => dispatch(createSuccess(res)))
     .catch((err) => dispatch(requestError(err)));
 };
 

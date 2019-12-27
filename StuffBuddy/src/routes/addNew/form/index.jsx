@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 
 const Form = props => {
   const {
-    values: { DeviceType, Name, Description, Price },
+    values: { DeviceType, DeviceName, Description, Price },
     errors,
     touched,
     handleChange,
@@ -25,43 +25,43 @@ const Form = props => {
   return (
     <form onSubmit={handleSubmit}>
       <TextField
-        id='type'
-        name='type'
+        id='DeviceType'
+        name='DeviceType'
         label='Device type'
-        helperText={touched.type ? errors.type : ''}
-        error={touched.type && Boolean(errors.type)}
+        helperText={touched.DeviceType ? errors.DeviceType : ''}
+        error={touched.DeviceType && Boolean(errors.DeviceType)}
         value={DeviceType}
-        onChange={change.bind(null, 'type')}
+        onChange={change.bind(null, 'DeviceType')}
         fullWidth
       />
       <TextField
-        id='description'
-        name='description'
+        id='Description'
+        name='Description'
         label='Description'
-        helperText={touched.description ? errors.description : ''}
-        error={touched.description && Boolean(errors.description)}
+        helperText={touched.Description ? errors.Description : ''}
+        error={touched.Description && Boolean(errors.Description)}
         value={Description}
-        onChange={change.bind(null, 'description')}
+        onChange={change.bind(null, 'Description')}
         fullWidth
       />
       <TextField
-        id='name'
-        name='name'
+        id='DeviceName'
+        name='DeviceName'
         label='Name'
-        helperText={touched.name ? errors.name : ''}
-        error={touched.name && Boolean(errors.name)}
-        value={Name}
-        onChange={change.bind(null, 'name')}
+        helperText={touched.DeviceName ? errors.DeviceName : ''}
+        error={touched.DeviceName && Boolean(errors.DeviceName)}
+        value={DeviceName}
+        onChange={change.bind(null, 'DeviceName')}
         fullWidth
       />
       <TextField
-        id='price'
-        name='price'
+        id='Price'
+        name='Price'
         label='Price'
-        helperText={touched.price ? errors.price : ''}
-        error={touched.price && Boolean(errors.price)}
+        helperText={touched.Price ? errors.Price : ''}
+        error={touched.Price && Boolean(errors.Price)}
         value={Price}
-        onChange={change.bind(null, 'price')}
+        onChange={change.bind(null, 'Price')}
         fullWidth
       />
       <Button

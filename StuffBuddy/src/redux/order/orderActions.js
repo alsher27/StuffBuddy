@@ -26,9 +26,11 @@ export const orderRemove = (id) => (dispatch) => {
 };
 
 export const orderCreate = (data) => (dispatch) => {
+
+  dispatch(createUserOrder(data));
+
   createOrder('order/create', data)
-    .then((res) => dispatch(createOrder(res)))
-    .catch((err) => dispatch(requestError(err)));
+  .catch((err) => dispatch(requestError(err)));
 };
 
 export const orderUpdate = (data) => (dispatch) => {

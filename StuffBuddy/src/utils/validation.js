@@ -44,11 +44,11 @@ export const filterSchema = Yup.object().shape({
 });
 
 export const addNewSchema = Yup.object().shape({
-  type: Yup.string('Enter the type').matches(/[a-zA-Z]/, 'Type can only contain Latin letters'),
-  description: Yup.string('Enter the type').matches(/[a-zA-Z]/, 'Description can only contain Latin letters'),
-  name: Yup.string('Enter an name')
+  DeviceType: Yup.string('Enter the type').matches(/[a-zA-Z]/, 'Type can only contain Latin letters'),
+  Description: Yup.string('Enter the type').matches(/[a-zA-Z]/, 'Description can only contain Latin letters'),
+  DeviceName: Yup.string('Enter an name')
     .required('Name is required')
     .matches(/[a-zA-Z]/, 'Name can only contain Latin letters'),
-  price: Yup.number('Enter the price'),
+  Price: Yup.number('Enter the price'),
 
 });

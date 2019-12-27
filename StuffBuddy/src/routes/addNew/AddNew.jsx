@@ -13,7 +13,7 @@ class AddNew extends PureComponent {
     const { history, deviceCreate } = this.props;
     const initialValues = {
       DeviceType: '',
-      Name: '',
+      DeviceName: '',
       Description: '',
       Price: '',
     };

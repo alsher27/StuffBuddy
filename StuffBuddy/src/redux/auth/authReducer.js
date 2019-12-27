@@ -62,7 +62,7 @@ const authReducer = handleActions(
       pending: false,
       isError: false,
       isLogged: true,
-      user: action.payload,
+      user: { email: action.payload.email, name: action.payload.username },
     }),
     [adminGetUsers]: (state, action) => ({
       ...state,
@@ -70,7 +70,7 @@ const authReducer = handleActions(
     }),
     [changeUser]: (state, action) => ({
       ...state,
-      user: action.payload,
+      user: { email: action.payload.email, name: action.payload.name },
     }),
   },
   initialState,
