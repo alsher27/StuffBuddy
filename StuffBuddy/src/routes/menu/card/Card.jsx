@@ -9,12 +9,17 @@ class Card extends PureComponent {
 } = this.props;
     return (
       <>
+      < br /> 
         <span>
           <h3>{Name}</h3>
         </span>
+        <br />
         <span>{DeviceType}</span>
+        <br /> 
         <span>{Description}</span>
+        <br />
         <span>{Price}</span>
+        <bt />
         <Button
             variant={('text', 'outlined')}
             color="black"

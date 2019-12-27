@@ -21,9 +21,11 @@ class Order extends PureComponent {
             NO, GET ME BACK
           </Button>
           <h1> YOUR ORDER </h1>
-
+            <br />
           Name: {order.name}
+          <br /> 
           Price: {order.price}
+          <br />
           <Button
             variant={('text', 'outlined')}
             color="black"
