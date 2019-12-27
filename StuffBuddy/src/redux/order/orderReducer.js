@@ -6,7 +6,7 @@ import {
 const initialState = {
   isError: false,
   error: null,
-  userOrders: [],
+  order: {},
 };
 
 const deviceReducer = handleActions(
@@ -21,25 +21,7 @@ const deviceReducer = handleActions(
       ...state,
       isError: false,
       error: null,
-      devicesShown: action.payload,
-    }),
-    [searchDeviceSuccess]: (state, action) => ({
-      ...state,
-      isError: false,
-      error: null,
-      devicesShown: action.payload,
-    }),
-    [deleteSuccess]: (state, action) => ({
-      ...state,
-      isError: false,
-      error: null,
-      devicesShown: action.payload,
-    }),
-    [userDevices]: (state, action) => ({
-      ...state,
-      isError: false,
-      error: null,
-      userDevices: action.payload,
+      order: action.payload,
     }),
   },
   initialState,

@@ -27,31 +27,31 @@ export const changeUser = createAction(CHANGE_USER);
 export const userLogin = (user) => (dispatch) => {
   dispatch(requestPending());
 
-  login('account/login', user)
+  login('Account/login', user)
     .then((res) => dispatch(loginSuccess(res)))
     .catch(() => dispatch(loginFailure()));
 };
 
 export const userLogout = () => (dispatch) => {
-  dispatch(requestPending);
+  dispatch(requestPending());
 
-  logout('account/signout')
+  logout('Account/signout')
     .then(() => dispatch(logoutSuccess()))
     .catch(() => dispatch(logoutFailure()));
 };
 
 export const userRegister = (user) => (dispatch) => {
-  dispatch(requestPending);
+  dispatch(requestPending());
 
   dispatch(registrationSuccess(user));
 
-  register('account/register', user).catch(() => dispatch(registrationFailure()));
+  register('Account/register', user).catch(() => dispatch(registrationFailure()));
 };
 
 export const usersGet = () => (dispatch) => {
-  dispatch(requestPending);
+  dispatch(requestPending());
 
-  getUsers('admin/users')
+  getUsers('Admin/users')
     .then((res) => dispatch(adminGetUsers(res)))
     .catch(() => dispatch(loginFailure()));
 };

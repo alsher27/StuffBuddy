@@ -9,7 +9,7 @@ import { searchSchema, filterSchema } from '../../utils/validation';
 
 import Form from './form/Form';
 import FilterForm from './form/FilterForm';
-import Card from './card/Card';
+import Card from './card';
 import './menu.scss';
 
 class Menu extends PureComponent {
@@ -120,8 +120,8 @@ class Menu extends PureComponent {
             </div>
           )}
           {!devicesShown.length
-            ? ''
-            : devicesShown.map((item) => <Card {...item} />)}
+            ? ' NO DEVICES YET'
+            : devicesShown.map((item) => <Card {...item} history={history} />)}
         </center>
       </>
     );

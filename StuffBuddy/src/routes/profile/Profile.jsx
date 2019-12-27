@@ -22,7 +22,7 @@ class Profile extends PureComponent {
   }
 
   render() {
-    const { user, userChange, userDevices } = this.props;
+    const { user, userChange, userDevices, history } = this.props;
     const { ifChange } = this.state;
     const initialValues = { name: user.name, email: user.email };
     return (
@@ -81,6 +81,15 @@ Your name is
 {' '}
             </>
           )}
+           <Button
+            variant={('text', 'outlined')}
+            color="black"
+            onClick={() => {
+              history.push('/menu');
+            }}
+          >
+            GO BACK
+          </Button>
         </center>
       </>
     );
