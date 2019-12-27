@@ -1,4 +1,4 @@
-const customFetch = (url, options) => fetch(`http://localhost:5000/api/${url}`, options)
+const customFetch = (url, options) => fetch(`https://stuffbuddy.herokuapp.com/api/${url}`, options)
   .then((res) => {
     if (!res.ok) {
       return Promise.reject;
