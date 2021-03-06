@@ -69,7 +69,7 @@ namespace StuffBuddy.Controllers
 
         [HttpGet]
         [Route("signout")]
-        public async void SignOut()
+        public new async void SignOut()
         {
             await _signInManager.SignOutAsync();
         }

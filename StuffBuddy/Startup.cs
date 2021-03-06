@@ -8,10 +8,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using StuffBuddy.Business;
@@ -34,9 +34,9 @@ namespace StuffBuddy
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public IServiceProvider ConfigureServices(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
             services.AddAutoMapper(typeof(Startup));
             
@@ -77,21 +77,14 @@ namespace StuffBuddy
             {
                 c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
             });
-            return services.BuildServiceProvider();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider serviceProvider)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                
-                app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions()
-                {
-                    HotModuleReplacement = true,
-                
-                });
             }
             else
             {
@@ -100,23 +93,18 @@ namespace StuffBuddy
             app.UseAuthentication();
             app.UseStaticFiles();
             app.UseHttpsRedirection();
-
-            app.UseSignalR(routes =>
-            {
-                routes.MapHub<NotificationsHub>("/notifications");
-            });
             
             app.UseCors("any");
-            app.UseMvc(routes =>
+            app.UseEndpoints(endpoints =>
             {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
-                routes.MapRoute(
-                    name: "DefaultApi",
-                    template: "api/{controller}/{action}/{id?}");
+                endpoints.MapControllerRoute(
+                    "default",
+                    "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute(
+                    "DefaultApi",
+                    "api/{controller}/{action}/{id?}");
+                endpoints.MapHub<NotificationsHub>("/notifications");
             });
-            
             app.UseSwagger();
 
             // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
